@@ -180,5 +180,8 @@
 }
 
 .hide {
-    display: none;
+    display:none;
+}
+.hide_btn {
+    display:none !important;
 }

@@ -45,25 +45,27 @@
         <div class="col-12 align-self-center">
             <form id="asset-form">
                 <div class="form-group">
-                    <input type="text" class="form-control" id="name" placeholder="Name" required oninvalid="setCustomValidity('Please Enter Name');" oninput="setCustomValidity('');" required>
+                    <input type="text" class="form-control" id="name" tabindex="1" placeholder="Name" required oninvalid="setCustomValidity('Please Enter Name');" oninput="setCustomValidity('');" required>
                     <a href="javascript:void(0)"  onclick="showNameTip()">  <i id="info-name" class="material-icons info">info</i></a>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="symbol" placeholder="Symbol" oninvalid="setCustomValidity('Please Enter Symbol');" oninput="setCustomValidity('');" required>
+                    <input type="text" class="form-control" id="symbol" tabindex="2" placeholder="Symbol" oninvalid="setCustomValidity('Please Enter Symbol');" oninput="setCustomValidity('');" required>
                     <a href="javascript:void(0)" onclick="showSymbolTip()"><i id="info-symbol" class="material-icons info">info</i></a>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" maxlength="2" id="decimals" oninvalid="setCustomValidity('Please Enter Decimals');" oninput="setCustomValidity('');"  placeholder="Decimals" required>
+                    <input type="text" class="form-control" maxlength="2" tabindex="3" id="decimals" oninvalid="setCustomValidity('Please Enter Decimals');" oninput="setCustomValidity('');"  placeholder="Decimals" required>
                     <a href="javascript:void(0)"  onclick="showDecimalTip()"><i id="info-decimal" class="material-icons info">info</i></a>                    
                     <span class="error-msg" id="decimals-error-msg"></span>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" id="total-supply" placeholder="Total Supply " oninvalid="setCustomValidity('Please Enter Total Supply ');" oninput="setCustomValidity('');"    required>
+                    <input type="text" class="form-control" id="total-supply" tabindex="4" placeholder="Total Supply " oninvalid="setCustomValidity('Please Enter Total Supply ');" oninput="setCustomValidity('');"    required>
                     <a href="javascript:void(0)"  onclick="showTotalTip()"><i id="info-supply" class="material-icons info">info</i></a>   
                     <span class="error-msg" id="total-supply-error-msg"></span>
                 </div>
                 <div class="form-group">
                     <button align="center" class="submit-button btn btn-primary" id="submit-btn" type="submit">Submit
+                    </button>
+                    <button align="center" class="submit-button btn btn-primary hide_btn" id="btnAgain">Again
                     </button>
                 </div>
             </form>

@@ -432,12 +432,22 @@ var metamaskUnlocked = $('#metamask-unlocked');
 
 var assetForm = $('#asset-form');
 var assetFormInput = $('#asset-form :input');
+
+//刷新
+var btnAgain = $('#btnAgain');
+
 //disable all form input fields
 assetFormInput.prop("disabled", true);
 
 window.addEventListener('load', async () => {
     metamaskLocked.show();
     iconLocked.show();
+
+    //reload window
+    $('#btnAgain').bind('click',function(e){
+        e.preventDefault();
+        window.location.href=window.location.href;
+    });
 
     // New ethereum provider
     if (window.ethereum) {
@@ -634,17 +644,17 @@ function isLocked() {
         });
 }
 
+
 //call function on form submit
 assetForm.submit(function (e) {
-
+ 
     //prevent the form from actually submitting.
     e.preventDefault();
 
     var initialSupply = $('#total-supply').val();
     var tokenName = $('#name').val();
     var decimalUnits = $('#decimals').val();
-    var tokenSymbol = $('#symbol').val();
-
+    var tokenSymbol = $('#symbol').val(); 
 
     if (tokenName === '') {
         alert('name can\'t be blank')
@@ -656,6 +666,9 @@ assetForm.submit(function (e) {
         alert('totalSupply can\'t be blank')
     } else {
         //disable all form input fields
+        //自动处理18个0
+        initialSupply = initialSupply  + '000000000000000000'; 
+
         assetFormInput.prop("disabled", true);
         statusText.innerHTML = 'Waiting for contract to be deployed...';
         var standardtokenContract = new web3.eth.Contract(abi);
@@ -666,10 +679,15 @@ assetForm.submit(function (e) {
             from: address
         }, function (error, transactionHash) {
             if (error) {
-                console.error(error);
+                console.error(error); 
                 assetFormInput.prop("disabled", false);
                 return;
             }
+            //
+            $("#submit-btn").addClass("hide_btn");
+            $("#btnAgain").removeClass("hide_btn");
+            $('#btnAgain').removeAttr("disabled"); 
+
             console.log('Transaction Hash :', transactionHash);
             if (isMainNetwork) {
                 statusText.innerHTML = '<p align="center">Contract deployment is in progress - please be patient. If nothing happens for a while check if there\'s any errors in the console (hit F12).<br> <strong>Transaction hash: </strong><br> <a href="https://etherscan.io/tx/' + transactionHash + '" target="_blank">' + transactionHash + '</a></p>'
@@ -706,7 +724,7 @@ function nthRoot(x, n) {
 
 function showNameTip(){
     toastMsgWarn(
-        "Tip",
+        "Tip Name",
         "Name is simply what you want to call your token, such as MyToken or SuperToken",
         "toast-top-center"
       );
@@ -714,14 +732,14 @@ function showNameTip(){
 
 function showSymbolTip(){
     toastMsgWarn(
-        "Tip",
+        "Tip Symbol",
         "Symbol will be the ticker of your token, such as BTC or ETH (normally tokens have a 3 letter uppercase symbol).",
         "toast-top-center"
       );
 }
 function showTotalTip(){
     toastMsgWarn(
-        "Tip",
+        "Tip Total Supply",
         "Total Supply will be number of tokens available. Token Total Supply <strong>VALUE</strong> " +
         "will be total number of tokens to the power of decimal places. (eg. if total supply is 1000 and" +
         "decimals is 18 then give 1000000000000000000000 as a value.)",
@@ -730,7 +748,7 @@ function showTotalTip(){
 }
 function showDecimalTip(){
     toastMsgWarn(
-        "Tip",
+        "Tip Decimals",
         "Decimals is how many decimal places your token can have, which determines how " + 
         "divisible it is. Generally tokens will have 18 decimals, which allows 1 token to be divided into " +
         "trillions of pieces (eg. with 18 decimals you could have as little as 0.000000000000000001 of a "+
@@ -765,7 +783,7 @@ function toastMsgSuccess(mainTitle, subTitle, position) {
     //This Is Success Message  Top Center toast-top-center
     toastr.warning(subTitle, mainTitle, {
       positionClass: position,
-      timeOut: 2000,
+      timeOut: 0,
       closeButton: true,
       debug: false,
       newestOnTop: true,
