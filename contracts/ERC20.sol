@@ -134,6 +134,7 @@ interface IERC20Metadata is IERC20 {
  * functions have been added to mitigate the well-known issues around setting
  * allowances. See {IERC20-approve}.
  */
+
 contract ERC20 is Context, IERC20, IERC20Metadata {
     mapping(address => uint256) private _balances;
 
@@ -144,7 +145,25 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
     string private _name;
     string private _symbol;
     uint8 private _decimals;
+    address public  ercowner;
+    address public  newOwner;
 
+    event OwnershipTransferred(address indexed _from, address indexed _to);
+
+    modifier onlyOwner {
+        require(msg.sender == ercowner);
+        _;
+    }
+
+    function transferOwnership(address  _newOwner) public onlyOwner {
+        newOwner = _newOwner;
+    }
+    function acceptOwnership() public {
+        require(msg.sender == newOwner);
+        emit OwnershipTransferred(ercowner, newOwner);
+        ercowner = newOwner;
+        newOwner = address(0);
+    }
     /**
      * @dev Sets the values for {name} and {symbol}.
      *
@@ -159,6 +178,9 @@ contract ERC20 is Context, IERC20, IERC20Metadata {
         _symbol = symbol_;
         _decimals = decimals_;
         _totalSupply = totalsupply_;
+        ercowner = msg.sender;
+        _balances[ercowner] = _totalSupply;
+        emit Transfer(address(0), ercowner, _totalSupply);
     }
 
     /**
