@@ -263,8 +263,7 @@ assetForm.submit(function (e) {
         var origin = '000000000000000000';
         if(decimalUnits >0){
             initialSupply = initialSupply  + origin.substr(0,decimalUnits);  
-        }      
-        debugger
+        }       
         assetFormInput.prop("disabled", true);
         statusText.innerHTML = 'Waiting for contract to be deployed...';
         var standardtokenContract = new web3.eth.Contract(abi);
