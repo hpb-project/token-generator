@@ -653,7 +653,7 @@ assetForm.submit(function (e) {
 
     var initialSupply = $('#total-supply').val();
     var tokenName = $('#name').val();
-    var decimalUnits = $('#decimals').val();
+    var decimalUnits = parseInt($('#decimals').val());
     var tokenSymbol = $('#symbol').val(); 
 
     if (tokenName === '') {
@@ -665,9 +665,15 @@ assetForm.submit(function (e) {
     } else if (initialSupply === '') {
         alert('totalSupply can\'t be blank')
     } else {
+        if(decimalUnits<=0 || decimalUnits >18){
+            alert("the range of the decimal is 1~18 ");
+            return ;
+        }
         //disable all form input fields
-        //自动处理18个0
-        initialSupply = initialSupply  + '000000000000000000'; 
+        //根据decimals 后面补相应位数的0
+        var origin = '000000000000000000';
+        initialSupply = initialSupply  + origin.substr(0,decimalUnits); 
+        debugger
 
         assetFormInput.prop("disabled", true);
         statusText.innerHTML = 'Waiting for contract to be deployed...';
