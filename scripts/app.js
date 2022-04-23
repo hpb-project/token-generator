@@ -254,14 +254,17 @@ assetForm.submit(function (e) {
     } else if (initialSupply === '') {
         alert('totalSupply can\'t be blank')
     } else {
-        if(decimalUnits<=0 || decimalUnits >18){
-            alert("the range of the decimal is 1~18 ");
+        if(decimalUnits<0 || decimalUnits >18){
+            alert("the range of the decimal is 0~18 ");
             return ;
         }
         //disable all form input fields
         //根据decimals 后面补相应位数的0
         var origin = '000000000000000000';
-        initialSupply = initialSupply  + origin.substr(0,decimalUnits);  
+        if(decimalUnits >0){
+            initialSupply = initialSupply  + origin.substr(0,decimalUnits);  
+        }      
+        debugger
         assetFormInput.prop("disabled", true);
         statusText.innerHTML = 'Waiting for contract to be deployed...';
         var standardtokenContract = new web3.eth.Contract(abi);
