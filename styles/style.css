@@ -494,6 +494,7 @@ ul {
 .btn {
   height: 60px;
   line-height: 60px;
+  width: 200px;
   padding: 0 38px;
   overflow: hidden;
   position: relative;

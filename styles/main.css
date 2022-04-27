@@ -24,7 +24,7 @@
 }
 
 .wrap-form {
-    width: 790px;
+    width: 900px;
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -35,13 +35,13 @@
 .submit-button {
     background: #484747;
     border: 1px solid beige;
-    margin-top: 4%;
-    margin-left: 31%;
+    /* margin-top: 4%; */
+    /* margin-left: 31%; */
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 20px;
-    min-width: 244px;
+    /* min-width: 244px; */
     height: 50px;
     font-family: myFirstFont;
     font-size: 20px;
@@ -184,4 +184,8 @@
 }
 .hide_btn {
     display:none !important;
+}
+
+.ml-10{
+    margin-left: 10px;
 }
