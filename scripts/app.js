@@ -260,10 +260,10 @@ assetForm.submit(function (e) {
         }
         //disable all form input fields
         //根据decimals 后面补相应位数的0
-        var origin = '000000000000000000';
-        if(decimalUnits >0){
-            initialSupply = initialSupply  + origin.substr(0,decimalUnits);  
-        }       
+        // var origin = '000000000000000000';
+        // if(decimalUnits >0){
+        //     initialSupply = initialSupply  + origin.substr(0,decimalUnits);  
+        // }       
         assetFormInput.prop("disabled", true);
         statusText.innerHTML = 'Waiting for contract to be deployed...';
         var standardtokenContract = new web3.eth.Contract(abi);
